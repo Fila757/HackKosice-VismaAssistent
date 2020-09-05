@@ -71,7 +71,12 @@ def events_to_speaker_and_google_calendar(events):
     say("I found " + str(len(events)) + "matching events")
     for event in events:
         if read_event(event):
-            add_event(event, 'secondary')
+            tmp_event = dict()
+            tmp_event['summary'] = event['summary']
+            tmp_event['description'] = event['description']
+            tmp_event['start'] = event['start']
+            tmp_event['end'] = event['end']
+            add_event(tmp_event, 'secondary')
         
     
     #TODO after knowing how piaudio or google assistent works
