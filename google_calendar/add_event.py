@@ -10,7 +10,7 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def add_event(event):
+def add_event(event, calendarId):
     """
     Adding an event to a google calendar
     """
@@ -35,7 +35,7 @@ def add_event(event):
 
     service = build('calendar', 'v3', credentials=creds)
 
-    event = service.calendars().insert(calendarId='primary', body=event).execute()
+    event = service.events().insert(calendarId=calendarId, body=event).execute()
     print ('Event created: %s' % (event.get('htmlLink')))
 
 
@@ -69,4 +69,4 @@ if __name__ == '__main__':
         },
     }
 
-    add_event(event)
+    add_event(event, 'primary')
