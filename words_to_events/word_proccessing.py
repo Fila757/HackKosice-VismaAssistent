@@ -5,8 +5,11 @@ import os
 import re
 
 sys.path.append('../google_calendar')
-from list_events import list_events
-from add_event import add_event
+sys.path.append('../voice_recog')
+from google_calendar.list_events import list_events
+from google_calendar.add_event import add_event
+from voice_recog.event_to_speech import say_event
+from voice_recog.text_to_speech import say
 
 sep=';|\.|\?|!| |\n'
 
@@ -56,18 +59,11 @@ def find_right_events(text):
 
     print(matching_events)
     return matching_events
-                
-
-def say_event(event):
-    #TODO
-    pass
 
 def read_event(event):
     say_event(event)
 
-    #rikam si
-
-    said_words = #blabla
+    said_words = "Aaaa"
     
     if 'yes' in said_words.split():
         return True
@@ -75,7 +71,7 @@ def read_event(event):
         return False
 
 def events_to_speaker_and_google_calendar(events):
-
+    say("I found " + str(len(events)) + "matching events")
     for event in events:
         if read_event(event):
             add_event(event)
