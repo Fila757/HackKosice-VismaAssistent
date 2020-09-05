@@ -1,5 +1,6 @@
 *~*
 *.swp*
 *env*
-*wav
+*.wav
+*.mp3
 token.pickle
