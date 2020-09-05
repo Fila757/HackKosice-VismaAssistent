@@ -10,6 +10,7 @@ from google_calendar.list_events import list_events
 from google_calendar.add_event import add_event
 from voice_recog.event_to_speech import say_event
 from voice_recog.text_to_speech import say
+from voice_recog.speech_to_text import speech_to_text
 
 sep=';|\.|\?|!| |\n'
 
@@ -56,13 +57,12 @@ def find_right_events(text):
                 matching_events.append(event)
                 break
 
-    print(matching_events)
     return matching_events
 
 def read_event(event):
     say_event(event)
 
-    said_words = "Aaaa"
+    said_words = speech_to_text()
     
     if 'yes' in said_words.split():
         return True

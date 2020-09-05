@@ -8,6 +8,7 @@ def speech_to_text():
     mic = sr.Microphone()
 
     with mic as source:
+        r.adjust_for_ambient_noise(source)
         audio = r.listen(source)
         with open("neco.wav", "wb") as file:
             file.write(audio.get_wav_data())

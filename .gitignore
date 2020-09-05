@@ -3,4 +3,4 @@
 *env*
 *.wav
 *.mp3
-token.pickle
+*token.pickle
