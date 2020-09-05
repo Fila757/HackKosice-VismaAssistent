@@ -33,7 +33,7 @@ def proccess_text(text):
 def find_right_events(text):
 
     words = proccess_text(text) #names #nouns
-    events = list_events()
+    events = list_events('primary')
 
     #names, maybe take emails from some databaze
 
