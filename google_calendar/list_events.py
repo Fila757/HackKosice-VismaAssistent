@@ -50,6 +50,8 @@ def list_events():
         start = event['start'].get('dateTime', event['start'].get('date'))
         print(start, event['summary'])
 
+    return events
+
 
 if __name__ == '__main__':
     list_events()

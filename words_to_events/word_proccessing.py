@@ -2,9 +2,13 @@ import json
 import nltk
 import sys
 import os
+import re
 
 sys.path.append('../google_calendar')
 from list_events import list_events
+from add_event import add_event
+
+sep=';|\.|\?|!| |\n'
 
 def proccess_text(text):
     text = nltk.word_tokenize(text)
@@ -34,29 +38,53 @@ def find_right_events(text):
     matching_events = list()
     
     for event in events:
-        #names 
-        for word in words[0]:
-            if word in event['summary'] or word in event['description']:
+        #names
+        #print(re.split(sep, event['summary']))
+        #print(re.split(sep, event['description']))
+        for word in words['names']:
+            if (word in re.split(sep, event['summary'])) or (word in re.split(sep, event['description'])):
                 matching_events.append(event)
                 break
-            if word in event['attendees']:
+            if {'name':word} in event['attendees']:
                 matching_events.append(event)
                 break
         #nouns
-        for word in words[1]:
-            if word in event['summary'] or word in event['description']:
+        for word in words['nouns']:
+            if (word in re.split(sep, event['summary'])) or (word in re.split(sep, event['description'])):
                 matching_events.append(event)
                 break
 
+    print(matching_events)
     return matching_events
                 
-    
-def events_to_speaker(events):
+
+def say_event(event):
+    #TODO
     pass
+
+def read_event(event):
+    say_event(event)
+
+    #rikam si
+
+    said_words = #blabla
+    
+    if 'yes' in said_words.split():
+        return True
+    else:
+        return False
+
+def events_to_speaker_and_google_calendar(events):
+
+    for event in events:
+        if read_event(event):
+            add_event(event)
+        
+    
     #TODO after knowing how piaudio or google assistent works
 
 
 if __name__ == '__main__':
-    print(find_right_events(input()))
+    print(len(find_right_events(input())))
     
             
