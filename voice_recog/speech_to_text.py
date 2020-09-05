@@ -14,5 +14,4 @@ def speech_to_text():
             file.write(audio.get_wav_data())
     said = r.recognize_google(audio)
     print(said)
-    say(said)
     return said

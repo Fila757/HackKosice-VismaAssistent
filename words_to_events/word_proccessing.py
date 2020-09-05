@@ -77,7 +77,8 @@ def events_to_speaker_and_google_calendar(events):
             tmp_event['start'] = event['start']
             tmp_event['end'] = event['end']
             add_event(tmp_event, 'secondary')
-        
+            say("I have successfuly added the great event to your calendar.")
+            break
     
     #TODO after knowing how piaudio or google assistent works
 
