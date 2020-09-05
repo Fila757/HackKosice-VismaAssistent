@@ -10,9 +10,9 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def main():
+def rm_event(eventId):
     """Shows basic usage of the Google Calendar API.
-    Prints the start and name of the next 10 events on the user's calendar.
+    Delete event with given id
     """
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -35,12 +35,9 @@ def main():
 
     service = build('calendar', 'v3', credentials=creds)
 
-    #kwargs = {calendarId: 'primary', eventId: 'NXZpM2pkM2QxanF1MG8zb2ZhcThrc2RoMDBfMjAyMDA5MDVkvawrgs'}
-
-    event = service.events().delete(calendarId='primary', eventId='NXZpM2pkM2QxanF1MG8zb2ZhcThrc2RoMDBfMjAyMDA5MDVUMTYwMDAwWiBmaWxpcC5jZXJtYWsyQG0').execute()
-
+    event = service.events().delete(calendarId='primary',eventId=eventId).execute()
 
 
 
 if __name__ == '__main__':
-    main()
+    rm_event('obp01dkut2m71t9fs11ioqmapk_20200906T160000Z')

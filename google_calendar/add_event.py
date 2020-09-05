@@ -35,7 +35,7 @@ def add_event(event):
 
     service = build('calendar', 'v3', credentials=creds)
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
+    event = service.calendars().insert(calendarId='primary', body=event).execute()
     print ('Event created: %s' % (event.get('htmlLink')))
 
 
