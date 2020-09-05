@@ -33,7 +33,7 @@ def proccess_text(text):
 def find_right_events(text):
 
     words = proccess_text(text) #names #nouns
-    events = list_events('primary')
+    events = list_events()
 
     #names, maybe take emails from some databaze
 
@@ -67,20 +67,28 @@ def read_event(event):
     else:
         return False
 
+def create_same_event(event):
+    tmp_event = dict()
+    
+    if 'summary' in event.keys() tmp_event['summary'] = event['summary']
+    if 'description' in event.keys() tmp_event['description'] = event['despription']
+    if 'start' in event.keys() tmp_event['start'] = event['start']
+    if 'end' in event.keys() tmp_event['end'] = event['end']
+    if 'location' in event.keys() tmp_event['location'] = event['location']
+    if 'reminders' in event.keys() tmp_event['reminders'] = event['reminders']
+    if 'attendees' in event.keys() tmp_event['attendees'] = event['attendees']
+
+    return tmp_event
+
 def events_to_speaker_and_google_calendar(events):
     say("I found " + str(len(events)) + "matching events")
     for event in events:
         if read_event(event):
-            tmp_event = dict()
-            tmp_event['summary'] = event['summary']
-            tmp_event['description'] = event['description']
-            tmp_event['start'] = event['start']
-            tmp_event['end'] = event['end']
-            add_event(tmp_event, 'secondary')
-            say("I have successfuly added the great event to your calendar.")
-            break
+
+            event = create_same_event(event)
+            add_event(event, 'secondary')
     
-    #TODO after knowing how piaudio or google assistent works
+
 
 
 if __name__ == '__main__':
