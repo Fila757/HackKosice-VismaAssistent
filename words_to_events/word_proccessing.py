@@ -39,7 +39,6 @@ def find_right_events(text):
     #names, maybe take emails from some databaze
 
     matching_events = list()
-    
     for event in events:
         #names
         #print(re.split(sep, event['summary']))
