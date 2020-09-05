@@ -1,7 +1,7 @@
 import sys
 import speech_recognition as sr
 import os
-from voice_recog.text_to_speech import say
+import voice_recog.text_to_speech as ts
 
 def speech_to_text():
     r = sr.Recognizer()
@@ -14,4 +14,5 @@ def speech_to_text():
             file.write(audio.get_wav_data())
     said = r.recognize_google(audio)
     print(said)
+    ts.bag.punch(said)
     return said

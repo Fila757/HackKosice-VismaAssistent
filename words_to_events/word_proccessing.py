@@ -7,7 +7,7 @@ import re
 from google_calendar.list_events import list_events
 from google_calendar.add_event import add_event
 from voice_recog.event_to_speech import say_event
-from voice_recog.text_to_speech import say
+import voice_recog.text_to_speech as ts
 from voice_recog.speech_to_text import speech_to_text
 
 sep=';|\.|\?|!| |\n'
@@ -68,7 +68,7 @@ def read_event(event):
         return False
 
 def events_to_speaker_and_google_calendar(events):
-    say("I found " + str(len(events)) + "matching events")
+    ts.bag2.punch("I found " + str(len(events)) + " matching events")
     for event in events:
         if read_event(event):
             tmp_event = dict()
@@ -77,13 +77,12 @@ def events_to_speaker_and_google_calendar(events):
             tmp_event['start'] = event['start']
             tmp_event['end'] = event['end']
             add_event(tmp_event, 'secondary')
-            say("I have successfuly added the great event to your calendar.")
+            ts.bag2.punch("I have successfuly added the great event to your calendar.")
             break
+        ts.bag2.punch("You don't want to add that great event to your calendar? What a shame!")
     
     #TODO after knowing how piaudio or google assistent works
 
 
 if __name__ == '__main__':
     print(len(find_right_events(input())))
-    
-            
