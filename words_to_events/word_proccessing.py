@@ -70,13 +70,13 @@ def read_event(event):
 def create_same_event(event):
     tmp_event = dict()
     
-    if 'summary' in event.keys() tmp_event['summary'] = event['summary']
-    if 'description' in event.keys() tmp_event['description'] = event['despription']
-    if 'start' in event.keys() tmp_event['start'] = event['start']
-    if 'end' in event.keys() tmp_event['end'] = event['end']
-    if 'location' in event.keys() tmp_event['location'] = event['location']
-    if 'reminders' in event.keys() tmp_event['reminders'] = event['reminders']
-    if 'attendees' in event.keys() tmp_event['attendees'] = event['attendees']
+    if 'summary' in event.keys(): tmp_event['summary'] = event['summary']
+    if 'description' in event.keys(): tmp_event['description'] = event['despription']
+    if 'start' in event.keys(): tmp_event['start'] = event['start']
+    if 'end' in event.keys(): tmp_event['end'] = event['end']
+    if 'location' in event.keys(): tmp_event['location'] = event['location']
+    if 'reminders' in event.keys(): tmp_event['reminders'] = event['reminders']
+    if 'attendees' in event.keys(): tmp_event['attendees'] = event['attendees']
 
     return tmp_event
 
