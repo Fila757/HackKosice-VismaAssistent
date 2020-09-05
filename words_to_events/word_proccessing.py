@@ -78,7 +78,7 @@ def create_same_event(event):
     tmp_event = dict()
     
     if 'summary' in event.keys(): tmp_event['summary'] = event['summary']
-    if 'description' in event.keys(): tmp_event['description'] = event['despription']
+    if 'description' in event.keys(): tmp_event['description'] = event['description']
     if 'start' in event.keys(): tmp_event['start'] = event['start']
     if 'end' in event.keys(): tmp_event['end'] = event['end']
     if 'location' in event.keys(): tmp_event['location'] = event['location']
@@ -89,9 +89,9 @@ def create_same_event(event):
 
 def events_to_speaker_and_google_calendar(events):
     if(len(events) == 0):
-        ts.bag2.punch("I am sorry, but I haven't found any matching event")
+        ts.bag2.punch("I am sorry, but I haven't found any matching event.")
     else:
-        ts.bag2.punch("I found " + str(len(events)) + "matching events")
+        ts.bag2.punch("I found " + str(len(events)) + " matching events.")
         
     for event in events:
         if read_event(event):
