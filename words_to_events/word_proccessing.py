@@ -4,8 +4,6 @@ import sys
 import os
 import re
 
-sys.path.append('../google_calendar')
-sys.path.append('../voice_recog')
 from google_calendar.list_events import list_events
 from google_calendar.add_event import add_event
 from voice_recog.event_to_speech import say_event
