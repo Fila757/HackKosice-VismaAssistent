@@ -10,7 +10,7 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def rm_event(eventId):
+def rm_event(eventId, calendarId):
     """Shows basic usage of the Google Calendar API.
     Delete event with given id
     """
@@ -18,8 +18,8 @@ def rm_event(eventId):
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
+    if os.path.exists(os.path.join(calendarId, 'token.pickle')):
+        with open(os.path.join(calendarId, 'token.pickle'), 'rb') as token:
             creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
@@ -30,7 +30,7 @@ def rm_event(eventId):
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
+        with open(os.path.join(calendarId, 'token.pickle'), 'wb') as token:
             pickle.dump(creds, token)
 
     service = build('calendar', 'v3', credentials=creds)
@@ -40,4 +40,4 @@ def rm_event(eventId):
 
 
 if __name__ == '__main__':
-    rm_event('obp01dkut2m71t9fs11ioqmapk_20200906T160000Z')
+    rm_event('obp01dkut2m71t9fs11ioqmapk_20200906T160000Z', 'primary')
