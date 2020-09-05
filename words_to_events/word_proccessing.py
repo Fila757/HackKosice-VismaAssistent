@@ -11,6 +11,8 @@ import voice_recog.text_to_speech as ts
 from voice_recog.speech_to_text import speech_to_text
 
 sep=';|\.|\?|!| |\n'
+affirmative_words=['yes', 'all right', 'alright', 'very well', 'of course', 'by all means', 'sure', 'certainly', 'absolutely', 'indeed', 'affirmative', 'in the affirmative', 'agreed', 'roger', 'aye', 'yeah', 'yah', 'yep', 'yup', 'uh-huh', 'okay', 'OK', 'okey-dokey', 'okey-doke', 'achcha', 'righto', 'righty-ho', 'surely', 'yea']
+negative_words=['no', 'not', 'un']
 
 def proccess_text(text):
     text = nltk.word_tokenize(text)
@@ -61,27 +63,45 @@ def read_event(event):
     say_event(event)
 
     said_words = speech_to_text()
+
+    for word in negative_words:
+        if word in re.split(sep, said_words):
+            return False
+           
+    for word in affirmative_words:
+        if word in said_words:
+            return True
+
+    return False
+
+def create_same_event(event):
+    tmp_event = dict()
     
-    if 'yes' in said_words.split():
-        return True
-    else:
-        return False
+    if 'summary' in event.keys(): tmp_event['summary'] = event['summary']
+    if 'description' in event.keys(): tmp_event['description'] = event['despription']
+    if 'start' in event.keys(): tmp_event['start'] = event['start']
+    if 'end' in event.keys(): tmp_event['end'] = event['end']
+    if 'location' in event.keys(): tmp_event['location'] = event['location']
+    if 'reminders' in event.keys(): tmp_event['reminders'] = event['reminders']
+    if 'attendees' in event.keys(): tmp_event['attendees'] = event['attendees']
+
+    return tmp_event
 
 def events_to_speaker_and_google_calendar(events):
-    ts.bag2.punch("I found " + str(len(events)) + " matching events")
+    if(len(events) == 0):
+        ts.bag2.punch("I am sorry, but I haven't found any matching event")
+    else:
+        ts.bag2.punch("I found " + str(len(events)) + "matching events")
+        
     for event in events:
         if read_event(event):
-            tmp_event = dict()
-            tmp_event['summary'] = event['summary']
-            tmp_event['description'] = event['description']
-            tmp_event['start'] = event['start']
-            tmp_event['end'] = event['end']
-            add_event(tmp_event, 'secondary')
+            event = create_same_event(event)
+            add_event(event, 'secondary')
             ts.bag2.punch("I have successfuly added the great event to your calendar.")
             break
         ts.bag2.punch("You don't want to add that great event to your calendar? What a shame!")
     
-    #TODO after knowing how piaudio or google assistent works
+
 
 
 if __name__ == '__main__':
