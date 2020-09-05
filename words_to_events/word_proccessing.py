@@ -11,6 +11,8 @@ from voice_recog.text_to_speech import say
 from voice_recog.speech_to_text import speech_to_text
 
 sep=';|\.|\?|!| |\n'
+affirmative_words=['yes', 'all right', 'alright', 'very well', 'of course', 'by all means', 'sure', 'certainly', 'absolutely', 'indeed', 'affirmative', 'in the affirmative', 'agreed', 'roger', 'aye', 'yeah', 'yah', 'yep', 'yup', 'uh-huh', 'okay', 'OK', 'okey-dokey', 'okey-doke', 'achcha', 'righto', 'righty-ho', 'surely', 'yea']
+negative_words=['no', 'not', 'un']
 
 def proccess_text(text):
     text = nltk.word_tokenize(text)
@@ -61,11 +63,16 @@ def read_event(event):
     say_event(event)
 
     said_words = speech_to_text()
-    
-    if 'yes' in said_words.split():
-        return True
-    else:
-        return False
+
+    for word in negative_words:
+        if word in re.split(sep, said_words):
+            return False
+           
+    for word in affirmative_words:
+        if word in said_words:
+            return True
+
+    return False
 
 def create_same_event(event):
     tmp_event = dict()
@@ -81,10 +88,13 @@ def create_same_event(event):
     return tmp_event
 
 def events_to_speaker_and_google_calendar(events):
-    say("I found " + str(len(events)) + "matching events")
+    if(str(len(events) == 0)):
+        say("I am sorry, but I haven't found any matching event")
+    else:
+        say("I found " + str(len(events)) + "matching events")
+        
     for event in events:
         if read_event(event):
-
             event = create_same_event(event)
             add_event(event, 'secondary')
     
