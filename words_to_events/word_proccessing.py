@@ -88,7 +88,7 @@ def create_same_event(event):
     return tmp_event
 
 def events_to_speaker_and_google_calendar(events):
-    if(str(len(events) == 0)):
+    if(len(events) == 0):
         say("I am sorry, but I haven't found any matching event")
     else:
         say("I found " + str(len(events)) + "matching events")
