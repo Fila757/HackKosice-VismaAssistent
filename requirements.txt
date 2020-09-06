@@ -6,7 +6,14 @@ google-auth-httplib2==0.0.4
 google-auth-oauthlib==0.4.1
 googleapis-common-protos==1.52.0
 oauthlib==3.1.0
+
 gTTS==2.1.1
+
 SpeechRecognition==3.8.1
 nltk==3.5
 PyAudio==0.2.11
+
+slackclient>=2.0.0
+slackeventsapi>=2.1.0
+Flask>=1.1.2
+certifi
