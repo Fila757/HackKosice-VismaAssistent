@@ -12,6 +12,7 @@ class MyWidget(QtWidgets.QWidget):
         self.setMaximumWidth(400) 
 
         self.button = QtWidgets.QPushButton("Klikni pro coool speech")
+        self.button.setStyleSheet("background-color: yellow")
 
         self.text = QtWidgets.QLabel("Hello World")
         self.text.setStyleSheet("color: red")
