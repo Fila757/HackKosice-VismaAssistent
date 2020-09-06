@@ -8,10 +8,10 @@ def say_event(event):
     string += "SUMMARY: " + event['summary'] + "\n"
     string += "DESCRIPTION: " + event['description'] + "\n"
     
-    start = str(datetime.datetime(*map(int, re.split('[^\d]', event['start']['dateTime'])[:-1])))
-    end = str(datetime.datetime(*map(int, re.split('[^\d]', event['end']['dateTime'])[:-1])))
-    string += "START: " + start + "\n"
-    string += "END: " + end + "\n"
+    start = (datetime.datetime(*map(int, re.split('[^\d]', event['start']['dateTime'])[:-1])))
+    end = (datetime.datetime(*map(int, re.split('[^\d]', event['end']['dateTime'])[:-1])))
+    string += "START: " + start.strftime("%A, %d %B %Y") + "\n"
+    string += "END: " + end.strftime("%A, %d %B %Y") + "\n"
     
     ts.bag3.punch(string)
     ts.bag2.punch("I will tell you more about one of the events I found:")

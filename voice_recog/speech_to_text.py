@@ -1,8 +1,7 @@
-import sys
+import sys, os
 import speech_recognition as sr
-import os
 import voice_recog.text_to_speech as ts
-from playsound import playsound
+
 
 def speech_to_text():
     r = sr.Recognizer()
@@ -13,13 +12,7 @@ def speech_to_text():
             with mic as source:
                 r.adjust_for_ambient_noise(source)
                 audio = r.listen(source)
-                with open("neco.wav", "wb") as file:
-                    file.write(audio.get_wav_data())
             said = r.recognize_google(audio)
-            if "play" in said and "song" in said:
-                print("playing")
-                playsound("wake.mp3")
-                continue
             break
         except:
             ts.bag2.punch("Sorry, I didn't understand you correctly. Could you please repeat it?")
@@ -29,4 +22,5 @@ def speech_to_text():
 
     print(said)
     ts.bag.punch(said)
+
     return said

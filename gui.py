@@ -12,12 +12,12 @@ class MyWidget(QtWidgets.QWidget):
         self.setMaximumWidth(400) 
 
         self.button = QtWidgets.QPushButton("Klikni pro coool speech")
-        
+
         self.text = QtWidgets.QLabel("Hello World")
         self.text.setStyleSheet("color: red")
         self.text.setAlignment(QtCore.Qt.AlignCenter)
         self.text.setWordWrap(True)
-        self.setStyleSheet("background-color: yellow;") 
+        self.setStyleSheet("background-color: lightblue;") 
 
         self.response = QtWidgets.QLabel()
         self.response.setStyleSheet("color: green")
@@ -30,11 +30,11 @@ class MyWidget(QtWidgets.QWidget):
         self.layout.addWidget(self.button)
         self.setLayout(self.layout)
         self.button.clicked.connect(self.magic)
-        
+
         ts.bag.punched.connect(self.say_punched)
         ts.bag2.punched.connect(self.say_punched2)
         ts.bag.punched.connect(ts.say)
-        ts.bag2.punched.connect(ts.say2)
+        ts.bag2.punched.connect(ts.say)
 
     @QtCore.pyqtSlot(str)
     def say_punched(self, string):
@@ -50,12 +50,14 @@ class MyWidget(QtWidgets.QWidget):
     
     def magic(self):
         self.button.clicked.disconnect(self.magic)
+        self.button.setStyleSheet("background-color: red")
         try:
             said = vr.speech_to_text()
-            events = we.find_right_events(said)
-            self.response.setText("eventy:"+str(events))
-            we.events_to_speaker_and_google_calendar(events)
+            we.react_to_said(said)
         except:
+            pass
+        finally:
+            self.button.setStyleSheet("background-color: yellow")
             self.button.clicked.connect(self.magic)    
 
 class Info(QtWidgets.QWidget):
@@ -68,7 +70,7 @@ class Info(QtWidgets.QWidget):
         self.info = QtWidgets.QLabel("Hello World")
         self.info.setAlignment(QtCore.Qt.AlignCenter)
         self.info.setWordWrap(True)
-        self.setStyleSheet("background-color: pink;") 
+        self.setStyleSheet("background-color: #ff6699;") 
 
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.addWidget(self.info)
@@ -86,6 +88,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, talks, info):
         QtWidgets.QMainWindow.__init__(self)
         self.setWindowTitle("ApoLenka")
+        self.setStyleSheet("background-color: #6666ff;") 
         layout = QtWidgets.QHBoxLayout()
 
         layout.addWidget(talks)
