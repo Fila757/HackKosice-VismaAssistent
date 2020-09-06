@@ -109,8 +109,8 @@ queueType = 0
 questions = []
 questionIndex = 0
 
-def read_question(question, answer = None):
-    
+def read_question(q_pair):
+    (question, answer) = q_pair
     if answer == None: ts.bag3.punch("QUESTION: "+question)
     else: ts.bag3.punch("QUESTION: "+question+"\n ANSWER: "+answer)
     
@@ -139,24 +139,30 @@ def read_question(question, answer = None):
 
 def react_to_said(said):
     global queue, queueType, questions, questionIndex
-    
-    if "add question" == said[:12]:
-        print("Question "+said[13:]+" added")
-        questions.append((said[13:],None))
-        ts.bag2.punch("Question "+said[13:]+" added")
+    print(queue, queueType) 
+    if "make" in said and "question" in said:
+        ts.bag2.punch("Great! Which question do you want to add?")
+        question = speech_to_text()
+        ts.bag2.punch("Awesome! And what is the answer to that question?")
+        answer = speech_to_text()
+        questions.append((question, answer))
+        ts.bag2.punch("Added question with answer.")
         return
        
-    if "read question" == said[:13]:
-        try:
-            queueType=2
-            questionIndex = int(said.split()[2])-1
-            if questionIndex >= len(questions):
-                ts.bag2.punch("There is no question with such number.")
-            else:
-                ts.bag2.punch("Reading question number "+str(questionIndex+1))
-                questions[questionIndex] = read_question(questions[questionIndex][0],questions[questionIndex][1])
-        except ValueError:
-            ts.bag2.punch("Could not deduce the question number.")
+    if "read" in said and "question" in said:
+        ts.bag2.punch("Great! Which question do you want to read?")
+        said = speech_to_text()
+        words = proccess_text(said)
+        matching_questions = []
+        for (q, a) in questions:
+            for word in words['nouns']:  
+                if (word in re.split(sep, q)) or (word in re.split(sep, a)):
+                    matching_questions.append((q, a))
+                    break
+        
+        queue = matching_questions[::-1]
+        queueType = 2
+        ts.bag2.punch("I found " + str(len(queue)) + " matching questions.")
         return
 
 
@@ -178,14 +184,11 @@ def react_to_said(said):
                     current_event = queue.pop()
                     events_to_speaker_and_google_calendar(current_event)
             elif queueType == 2:
-                if len(questions) == 0:
-                    ts.bag2.punch("I am sorry, but there seem to be no questions.")
+                if len(queue) == 0:
+                    ts.bag2.punch("I am sorry, I don't have any remaining questions.")
                 else:
-                    questionIndex += 1
-                    if questionIndex >= len(questions):
-                        questionIndex = 0
-                    ts.bag2.punch("Reading question number "+str(questionIndex+1))
-                questions[questionIndex] = read_question(questions[questionIndex][0],questions[questionIndex][1])
+                    current_question = queue.pop()
+                    read_question(current_question)
             return
 
 

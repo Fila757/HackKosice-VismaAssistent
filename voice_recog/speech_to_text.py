@@ -16,7 +16,6 @@ def speech_to_text():
             break
         except:
             ts.bag2.punch("Sorry, I didn't understand you correctly. Could you please repeat it?")
-            raise Exception("end")
     else:
         ts.bag2.punch("Sorry, I tried several times and still don't understand you. I give up.")
 

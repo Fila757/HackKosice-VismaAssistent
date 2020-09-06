@@ -5,13 +5,13 @@ def say_event(event):
     time = ['start', 'end']
     rest = ['location', 'reminders', 'attendees']
     string = ""
-    string += "SUMMARY: " + event['summary'] + "\n"
-    string += "DESCRIPTION: " + event['description'] + "\n"
+    string += "<b>SUMMARY: </b>" + event['summary'] + "<br>"
+    string += "<b>DESCRIPTION: </b>" + event['description'] + "<br>"
     
     start = (datetime.datetime(*map(int, re.split('[^\d]', event['start']['dateTime'])[:-1])))
     end = (datetime.datetime(*map(int, re.split('[^\d]', event['end']['dateTime'])[:-1])))
-    string += "START: " + start.strftime("%A, %d %B %Y") + "\n"
-    string += "END: " + end.strftime("%A, %d %B %Y") + "\n"
+    string += "<b>START: </b>" + str(start) + "<br>"
+    string += "<b>END: </b>" + str(end) + "<br>"
     
     ts.bag3.punch(string)
     ts.bag2.punch("I will tell you more about one of the events I found:")
