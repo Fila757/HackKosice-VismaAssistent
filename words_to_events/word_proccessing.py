@@ -11,7 +11,7 @@ import voice_recog.text_to_speech as ts
 from voice_recog.speech_to_text import speech_to_text
 
 sep=';|\.|\?|!| |\n'
-affirmative_words=['yes', 'all right', 'alright', 'very well', 'of course', 'by all means', 'sure', 'certainly', 'absolutely', 'indeed', 'affirmative', 'in the affirmative', 'agreed', 'roger', 'aye', 'yeah', 'yah', 'yep', 'yup', 'uh-huh', 'okay', 'OK', 'okey-dokey', 'okey-doke', 'achcha', 'righto', 'righty-ho', 'surely', 'yea']
+affirmative_words=['yes', 'all right', 'alright', 'very well', 'of course', 'by all means', 'sure', 'certainly', 'absolutely', 'indeed', 'affirmative', 'in the affirmative', 'agreed', 'roger', 'aye', 'yeah', 'yah', 'yep', 'yup', 'uh-huh', 'ok', 'okay', 'OK', 'okey-dokey', 'okey-doke', 'achcha', 'righto', 'righty-ho', 'surely', 'yea']
 negative_words=['no', 'not', 'un']
 
 def proccess_text(text):

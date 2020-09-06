@@ -22,5 +22,12 @@ def say(string):
     tts.save("good.mp3")
     playsound("good.mp3")
 
+@QtCore.pyqtSlot(str)
+def say2(string):
+    tts = gTTS(text=string, lang='en-uk')
+    tts.save("good.mp3")
+    playsound("good.mp3")
+
 bag = PunchingBag()
 bag2 = PunchingBag()
+bag3 = PunchingBag()
